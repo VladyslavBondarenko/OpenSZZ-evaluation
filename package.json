@@ -1,0 +1,17 @@
+{
+  "name": "compare-openszz-result-to-benchmark",
+  "version": "1.0.0",
+  "main": "app.js",
+  "author": "Vladyslav Bondarenko",
+  "license": "MIT",
+  "dependencies": {
+    "csvtojson": "^2.0.10",
+    "express": "^4.17.1",
+    "formidable": "^1.2.2",
+    "path": "^0.12.7"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "compare": "node compare.js"
+  }
+}

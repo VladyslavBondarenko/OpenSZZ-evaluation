@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>title</title>
+    <style>
+      body {
+        font-family: sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="files-form" method="post" enctype="multipart/form-data">
+      <div>
+        <labl for="result">Dataset from OpenSZZ</labl>
+        <input type="file" name="openszz" id="openszz" />
+      </div>
+      <div>
+        <labl for="benchmark">Benchmark dataset</labl>
+        <input type="file" name="benchmark" id="benchmark" /><br />
+      </div>
+      <input type="submit" value="compare" />
+      <div id="result"></div>
+    </form>
+    <script src="helpers.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
