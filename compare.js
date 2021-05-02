@@ -9,18 +9,21 @@ const compare = async () => {
     numberOfIssuesWithFoundBIC,
     numberOfIssuesInBenchmark,
     comparisonWithBenchmark,
+    numberOfBFC,
+    numberOfBFCWithFoundBIC,
+    numberOfIssuesWithFoundBFC,
   } = await getResult(openszzFileName, benchmarkFileName);
 
   const analyzedItems = comparisonWithBenchmark.map((item) => analyze(item));
 
   const resultToPrint = {
     ...getAggregatedMetrics(analyzedItems),
+    numberOfIssuesWithFoundBFC,
     numberOfIssuesWithFoundBIC,
-    numberOfIssuesInBenchmark,
-    rateFoundBugBIC: round(
+    rateFoundBICForIssuesInBenchmark: `${round(
       comparisonWithBenchmark.length / numberOfIssuesInBenchmark
-    ),
-    numberOfIssuesFromBenchmarkWithFoundBIC: comparisonWithBenchmark.length,
+    )} (${comparisonWithBenchmark.length}/${numberOfIssuesInBenchmark})`,
+    numberOfBFCWithFoundBIC: `${numberOfBFCWithFoundBIC}/${numberOfBFC}`,
   };
 
   console.log(resultToPrint);

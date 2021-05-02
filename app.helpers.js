@@ -19,20 +19,24 @@ const getComparisonWithBenchmark = (openszz, benchmark) => {
 };
 
 const getResult = async (openszzFileName, benchmarkFileName) => {
-  const result = await getDataFromOpenSZZResult(openszzFileName);
+  const { result, BFC, BFCwithBIC, issues } = await getDataFromOpenSZZResult(
+    openszzFileName
+  );
   const benchmarkResult = await getDataFromBenchmark(benchmarkFileName);
 
   const numberOfIssuesWithFoundBIC = Array.from(result).filter(
     (x) => x[1].bic.length
   ).length;
-  const numberOfIssuesInBenchmark = benchmarkResult.size;
   const comparisonWithBenchmark = getComparisonWithBenchmark(
     result,
     benchmarkResult
   );
   return {
+    numberOfBFC: BFC.length,
+    numberOfBFCWithFoundBIC: BFCwithBIC.length,
+    numberOfIssuesWithFoundBFC: issues.length,
     numberOfIssuesWithFoundBIC,
-    numberOfIssuesInBenchmark,
+    numberOfIssuesInBenchmark: benchmarkResult.size,
     comparisonWithBenchmark,
   };
 };

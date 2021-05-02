@@ -5,6 +5,8 @@ const onResult = (data) => {
     numberOfIssuesWithFoundBIC,
     numberOfIssuesInBenchmark,
     comparisonWithBenchmark,
+    numberOfBFCWithFoundBIC,
+    numberOfBFC,
   } = data;
 
   const analyzedItems = comparisonWithBenchmark.map((item) => ({
@@ -22,6 +24,8 @@ const onResult = (data) => {
       comparisonWithBenchmark.length / numberOfIssuesInBenchmark
     ),
     numberOfIssuesFromBenchmarkWithFoundBIC: comparisonWithBenchmark.length,
+    numberOfBFCWithFoundBIC,
+    numberOfBFC,
   };
 
   console.log(result);
@@ -34,8 +38,8 @@ const onResult = (data) => {
       <td>${result.numberOfIssuesWithFoundBIC}</td>
     </tr>
     <tr>
-      <td>Rate of found bug-introducing commits for issues from benchmark dataset</td>
-      <td>${result.rateFoundBugBIC} (${result.numberOfIssuesFromBenchmarkWithFoundBIC}/${result.numberOfIssuesInBenchmark})</td>
+      <td>Number of issues from benchmark dataset with bug-introducing commits found by OpenSZZ</td>
+      <td>${result.numberOfIssuesFromBenchmarkWithFoundBIC}/${result.numberOfIssuesInBenchmark} (${result.rateFoundBugBIC})</td>
     </tr>
     <tr>
       <td>Sensitivity</td>
@@ -44,6 +48,10 @@ const onResult = (data) => {
     <tr>
       <td>Precision</td>
       <td>${result.precision}</td>
+    </tr>
+    <tr>
+      <td>Number of bug-fixing commits with found bug-introducing commits</td>
+      <td>${numberOfBFCWithFoundBIC}/${numberOfBFC}</td>
     </tr>
   </table>
   `;

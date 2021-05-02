@@ -7,6 +7,12 @@ const getDataFromOpenSZZResult = async (fileName) => {
     }).fromFile(fileName);
 
     const issues = [...new Set(lines.map((l) => l.issueId))];
+    const BFC = [...new Set(lines.map((l) => l.bugFixingId))];
+    const BFCwithBIC = [
+      ...new Set(
+        lines.filter((l) => l.bugInducingId).map((l) => l.bugFixingId)
+      ),
+    ];
     const issuesMap = new Map();
     const getData = (issueId) => {
       const filteredLines = lines.filter((l) => l.issueId === issueId);
@@ -30,7 +36,12 @@ const getDataFromOpenSZZResult = async (fileName) => {
       const result = getData(issue);
       if (result.bic.length) issuesMap.set(issue, result);
     });
-    return issuesMap;
+    return {
+      result: issuesMap,
+      BFC,
+      BFCwithBIC,
+      issues,
+    };
   } catch (e) {
     console.log(e);
   }
