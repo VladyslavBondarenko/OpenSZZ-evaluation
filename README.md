@@ -22,3 +22,7 @@ A tool to compare results of [OpenSZZ](https://github.com/VladyslavBondarenko/Op
 `yarn compare <path-to-openszz.csv> <path-to-benchmark.csv>`
 
 Example: `yarn compare ./example/OOZIE-openszz.csv ./example/OOZIE-benchmark.csv`
+
+In command line version you can also count number of bug-fixing commits that don't have bug-introducing commits found because the bug was fixed with only line additions:
+
+`node line-additions.js <path-to-openszz.csv>`
