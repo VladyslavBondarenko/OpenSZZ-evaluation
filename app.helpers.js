@@ -19,10 +19,13 @@ const getComparisonWithBenchmark = (openszz, benchmark) => {
 };
 
 const getResult = async (openszzFileName, benchmarkFileName) => {
+  const { issuesMap: benchmarkResult, commitShaLength } =
+    await getDataFromBenchmark(benchmarkFileName);
+
   const { result, BFC, BFCwithBIC, issues } = await getDataFromOpenSZZResult(
-    openszzFileName
+    openszzFileName,
+    commitShaLength
   );
-  const benchmarkResult = await getDataFromBenchmark(benchmarkFileName);
 
   const numberOfIssuesWithFoundBIC = Array.from(result).filter(
     (x) => x[1].bic.length

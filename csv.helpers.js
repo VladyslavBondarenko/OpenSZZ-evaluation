@@ -1,6 +1,6 @@
 const csv = require("csvtojson");
 
-const getDataFromOpenSZZResult = async (fileName) => {
+const getDataFromOpenSZZResult = async (fileName, commitShaLength = 8) => {
   try {
     const lines = await csv({
       delimiter: ";",
@@ -19,14 +19,14 @@ const getDataFromOpenSZZResult = async (fileName) => {
       const bfc = [
         ...new Set(
           filteredLines
-            .map((l) => l.bugFixingId.substring(0, 8))
+            .map((l) => l.bugFixingId.substring(0, commitShaLength))
             .filter((bfc) => bfc.length)
         ),
       ];
       const bic = [
         ...new Set(
           filteredLines
-            .map((l) => l.bugInducingId.substring(0, 8))
+            .map((l) => l.bugInducingId.substring(0, commitShaLength))
             .filter((bic) => bic.length)
         ),
       ];
@@ -60,7 +60,9 @@ const getDataFromBenchmark = async (fileName) => {
         bic: issue.BugInducingCommit.split(","),
       });
     });
-    return issuesMap;
+    const commitShaLength =
+      lines.length && lines[0].BugFixingCommit.split(",")[0].length;
+    return { issuesMap, commitShaLength };
   } catch (e) {
     console.log(e);
   }
