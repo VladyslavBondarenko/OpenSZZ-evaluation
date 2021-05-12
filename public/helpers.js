@@ -15,8 +15,8 @@
   });
 
   exports.analyze = (item) => {
-    const predicted = item.result.bic;
-    const actual = item.benchmark.bic;
+    const predicted = item.result;
+    const actual = item.benchmark;
 
     const confusionMatrix = getConfusionMatrix(predicted, actual);
 

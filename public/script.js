@@ -2,8 +2,7 @@ const { round, analyze, getAggregatedMetrics } = this.helpers;
 
 const onResult = (data) => {
   const {
-    numberOfIssuesWithFoundBIC,
-    numberOfIssuesInBenchmark,
+    numberOfBICInBenchmark,
     comparisonWithBenchmark,
     numberOfBFCWithFoundBIC,
     numberOfBFC,
@@ -18,12 +17,7 @@ const onResult = (data) => {
 
   const result = {
     ...getAggregatedMetrics(analyzedItems),
-    numberOfIssuesWithFoundBIC,
-    numberOfIssuesInBenchmark,
-    rateFoundBugBIC: round(
-      comparisonWithBenchmark.length / numberOfIssuesInBenchmark
-    ),
-    numberOfIssuesFromBenchmarkWithFoundBIC: comparisonWithBenchmark.length,
+    numberOfBICInBenchmark,
     numberOfBFCWithFoundBIC,
     numberOfBFC,
   };
@@ -34,12 +28,12 @@ const onResult = (data) => {
   <p>Result:</p>
   <table>
     <tr>
-      <td>Number of issues in OpenSZZ result dataset with found bug-introducing commits</td>
-      <td>${result.numberOfIssuesWithFoundBIC}</td>
+      <td>Number of bug-fixing commits with found bug-introducing commits</td>
+      <td>${numberOfBFCWithFoundBIC}/${numberOfBFC}</td>
     </tr>
     <tr>
-      <td>Number of issues from benchmark dataset with bug-introducing commits found by OpenSZZ</td>
-      <td>${result.numberOfIssuesFromBenchmarkWithFoundBIC}/${result.numberOfIssuesInBenchmark} (${result.rateFoundBugBIC})</td>
+      <td>Number of bug-fixing commits from benchmark with found bug-introducing commits</td>
+      <td>${comparisonWithBenchmark.length}/${numberOfBICInBenchmark}</td>
     </tr>
     <tr>
       <td>Sensitivity</td>
@@ -48,10 +42,6 @@ const onResult = (data) => {
     <tr>
       <td>Precision</td>
       <td>${result.precision}</td>
-    </tr>
-    <tr>
-      <td>Number of bug-fixing commits with found bug-introducing commits</td>
-      <td>${numberOfBFCWithFoundBIC}/${numberOfBFC}</td>
     </tr>
   </table>
   `;

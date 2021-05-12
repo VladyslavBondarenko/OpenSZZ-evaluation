@@ -6,23 +6,19 @@ const { round, analyze, getAggregatedMetrics } = require("./public/helpers.js");
 
 const compare = async () => {
   const {
-    numberOfIssuesWithFoundBIC,
-    numberOfIssuesInBenchmark,
+    numberOfBICInBenchmark,
     comparisonWithBenchmark,
     numberOfBFC,
     numberOfBFCWithFoundBIC,
-    numberOfIssuesWithFoundBFC,
   } = await getResult(openszzFileName, benchmarkFileName);
 
   const analyzedItems = comparisonWithBenchmark.map((item) => analyze(item));
 
   const resultToPrint = {
     ...getAggregatedMetrics(analyzedItems),
-    numberOfIssuesWithFoundBFC,
-    numberOfIssuesWithFoundBIC,
     rateFoundBICForIssuesInBenchmark: `${round(
-      comparisonWithBenchmark.length / numberOfIssuesInBenchmark
-    )} (${comparisonWithBenchmark.length}/${numberOfIssuesInBenchmark})`,
+      comparisonWithBenchmark.length / numberOfBICInBenchmark
+    )} (${comparisonWithBenchmark.length}/${numberOfBICInBenchmark})`,
     numberOfBFCWithFoundBIC: `${numberOfBFCWithFoundBIC}/${numberOfBFC}`,
   };
 
